@@ -57,8 +57,12 @@ export const ActivityProvider = ({children}: ActivityProviderProps) => {
     
     // Devuelve el nombre de la categoría basado en su ID.
     const categoryName = useMemo(() => 
-        (category: Activity['category']) => categories.find(cat => cat.id === category)?.name || '', [categories])
-
+        (category: Activity['category']): string[] => {
+            const name = categories.find(cat => cat.id === category)?.name || '';
+            return [name]; // Devuelve un arreglo con el nombre
+        }, 
+        [categories]
+    );
     // Verifica si la lista de actividades está vacía.
     const isEmptyActivities = useMemo(() => state.activities.length === 0, [state.activities])
 
